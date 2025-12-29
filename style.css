@@ -6,7 +6,7 @@ body {
     color: white;
 }
 
-/* Confetti fix */
+/* Confetti */
 #confetti {
     position: fixed;
     top: 0;
@@ -21,17 +21,45 @@ body {
     padding: 20px;
 }
 
-img {
+h1 {
+    font-size: 40px;
+}
+
+/* AGE ANIMATION */
+.age-box {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 15px 0;
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff6f91;
+    animation: glow 1.5s infinite alternate;
+}
+
+.years {
+    font-size: 28px;
+    margin-left: 10px;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #fff; }
+    to { text-shadow: 0 0 30px #ff6f91; }
+}
+
+/* Image slider */
+#photo {
     width: 260px;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+    margin-top: 15px;
 }
 
+/* Buttons */
 button {
     padding: 10px 20px;
     border: none;
     border-radius: 20px;
-    margin: 10px;
+    margin: 15px;
     cursor: pointer;
     font-size: 16px;
 }
@@ -45,7 +73,7 @@ button:hover {
 #loveMessage {
     display: none;
     font-size: 22px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 /* Cake */
