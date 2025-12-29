@@ -1,74 +1,9 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    text-align: center;
-    color: white;
-}
-
-.container {
-    position: relative;
-    z-index: 2;
-    padding: 20px;
-}
-
-h1 { font-size: 38px; }
-
-.age-box {
-    font-size: 48px;
-    font-weight: bold;
-    margin: 10px 0;
-    text-shadow: 0 0 15px #fff, 0 0 30px #ff6f91;
-}
-
-button {
-    padding: 10px 25px;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #ff6f91;
-    color: white;
-}
-
-#loveMessage {
-    font-size: 22px;
-    margin: 15px 0;
-}
-
-/* Confetti & fireworks */
-#confetti, #fireworks {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-}
-
-#confetti { z-index: 0; }
-#fireworks { z-index: 1; }
-
-/* Cake SVG */
-.cake-svg { margin: 30px auto; width: 360px; }
-
-/* Sparkle animation */
-.sparkles circle { fill: white; animation: sparkle 1.5s infinite alternate; }
-
-@keyframes sparkle { from {opacity:0.3;} to{opacity:1;} }
-
-/* Firework animation */
-.firework { fill: gold; animation: firework 1.2s infinite; }
-
-@keyframes firework { 0%{r:2;opacity:1;} 100%{r:25;opacity:0;} }
-
-/* Photo styling */
-#photo {
-    width:260px;
-    border-radius:15px;
-    box-shadow:0 10px 20px rgba(0,0,0,0.3);
-    margin:15px 0;
-    opacity:0;
-    transition: opacity 1s ease-in-out;
-}
+body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(135deg,#ff9a9e,#fad0c4); text-align:center; color:white; }
+.container { padding:20px; }
+h1 { font-size:38px; }
+.age-box { font-size:48px; font-weight:bold; margin:10px 0; text-shadow:0 0 15px #fff,0 0 30px #ff6f91; }
+button { padding:10px 25px; border:none; border-radius:25px; font-size:16px; cursor:pointer; }
+button:hover { background:#ff6f91; color:white; }
+#loveMessage { font-size:22px; margin:15px 0; }
+.cake-svg { margin:30px auto; width:360px; }
+#photo { width:260px; border-radius:15px; margin:15px 0; display:block; opacity:0; transition:opacity 1s ease-in-out; }
