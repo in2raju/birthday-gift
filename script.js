@@ -1,45 +1,75 @@
-window.onload = function(){
+/* AUTO IMAGE SLIDER */
+const photos = [
+    "images/pic1.jpg",
+    "images/pic2.jpg",
+    "images/pic3.jpg"
+];
 
-    const ageBox = document.getElementById("ageBox");
-    const photo = document.getElementById("photo");
-    const loveMsg = document.getElementById("loveMessage");
-    const btn = document.getElementById("surpriseBtn");
+let current = 0;
+const img = document.getElementById("photo");
 
-    /* Create 27 candles */
-    const candleGroup = document.getElementById("candles");
-    for(let i=0;i<27;i++){
-        const x = 90 + i*7;
-        candleGroup.innerHTML += `<rect x="${x}" y="70" width="6" height="25" fill="#ff4d4d"/>
-        <circle cx="${x+3}" cy="65" r="4" fill="gold">
-        <animate attributeName="r" values="3;5;3" dur="0.6s" repeatCount="indefinite"/></circle>`;
+function autoSlide() {
+    img.style.opacity = 0;
+
+    setTimeout(() => {
+        current = (current + 1) % photos.length;
+        img.src = photos[current];
+        img.style.opacity = 1;
+    }, 1000);
+}
+
+setInterval(autoSlide, 3000); // change every 3 sec
+
+/* SURPRISE MESSAGE */
+function showLove() {
+    document.getElementById("loveMessage").style.display = "block";
+}
+
+/* COUNTDOWN TIMER */
+const birthday = new Date("2025-01-01 00:00:00").getTime(); // CHANGE DATE
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = birthday - now;
+
+    if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "🎉 Happy Birthday! 🎉";
+        return;
     }
 
-    /* Surprise Button Click */
-    btn.addEventListener("click", function(){
-        btn.disabled = true; // prevent double click
-        let age = 0;
-        const targetAge = 27;
-        const counter = setInterval(()=>{
-            age++;
-            ageBox.textContent = age + " Years";
-            if(age>=targetAge){
-                clearInterval(counter);
-                loveMsg.style.display="block";
-                const photos = ["pic1.jpg","pic2.jpg","pic3.jpg"];
-                let current=0;
-                photo.src=photos[current];
-                photo.style.opacity=1;
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff / (1000*60*60)) % 24);
+    const m = Math.floor((diff / (1000*60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
 
-                setInterval(()=>{
-                    current = (current+1)%photos.length;
-                    photo.style.opacity=0;
-                    setTimeout(()=>{
-                        photo.src=photos[current];
-                        photo.style.opacity=1;
-                    },500);
-                },3000);
-            }
-        },100);
+    document.getElementById("countdown").innerHTML =
+        `⏰ ${d}d ${h}h ${m}m ${s}s left`;
+}, 1000);
+
+/* CONFETTI */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let confetti = Array.from({ length: 120 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 6 + 2,
+    d: Math.random() * 4 + 2
+}));
+
+function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsl(${Math.random() * 360},100%,50%)`;
+        ctx.fill();
+        c.y += c.d;
+        if (c.y > canvas.height) c.y = 0;
     });
+    requestAnimationFrame(drawConfetti);
+}
 
-};
+drawConfetti();
