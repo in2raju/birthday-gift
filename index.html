@@ -2,35 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Happy 27th Birthday 🎉</title>
+    <title>Happy Birthday 🎉</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<canvas id="confetti"></canvas>
+
 <div class="container">
 
-    <h1>🎉 Happy 27th Birthday 🎂</h1>
+    <h1>🎉 Happy Birthday 🎂</h1>
+    <h2 id="countdown"></h2>
 
-    <div class="age-box" id="ageBox">0 Years</div>
+    <p class="message">
+        Wishing you love, happiness and endless smiles 💖
+    </p>
 
-    <button id="surpriseBtn">💌 Click for Surprise</button>
+    <!-- AUTO IMAGE SLIDER -->
+    <img id="photo" src="images/pic1.jpg" alt="Birthday Photo">
 
-    <img id="photo" src="" alt="Birthday Photo" style="display:none;">
+    <br>
 
-    <div id="loveMessage" style="display:none;">❤️ Wishing you endless happiness ❤️</div>
+    <button class="surprise-btn" onclick="showLove()">💌 Click for Surprise</button>
 
-    <div class="cake-svg">
-        <svg width="360" height="320" viewBox="0 0 360 320">
-            <ellipse cx="180" cy="290" rx="140" ry="15" fill="#fff"/>
-            <rect x="50" y="200" width="260" height="60" rx="20" fill="#ffb347"/>
-            <rect x="65" y="150" width="230" height="55" rx="20" fill="#ffcc33"/>
-            <rect x="80" y="100" width="200" height="55" rx="20" fill="#ffdd55"/>
-            <text x="180" y="185" text-anchor="middle"
-                  font-size="26" fill="#d6336c" font-weight="bold">
-                ❤️ Barsha ❤️
-            </text>
-            <g id="candles"></g>
-        </svg>
+    <div id="loveMessage">
+        ❤️ You are the most special part of my life ❤️
+    </div>
+
+    <!-- CAKE -->
+    <div class="cake">
+        <div class="plate"></div>
+        <div class="layer bottom"></div>
+        <div class="layer middle"></div>
+        <div class="layer top"></div>
+        <div class="candle"></div>
     </div>
 
 </div>
@@ -38,4 +43,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
