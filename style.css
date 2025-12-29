@@ -12,9 +12,7 @@ body {
     padding: 20px;
 }
 
-h1 {
-    font-size: 38px;
-}
+h1 { font-size: 38px; }
 
 .age-box {
     font-size: 48px;
@@ -37,7 +35,6 @@ button:hover {
 }
 
 #loveMessage {
-    display: none;
     font-size: 22px;
     margin: 15px 0;
 }
@@ -54,37 +51,24 @@ button:hover {
 #fireworks { z-index: 1; }
 
 /* Cake SVG */
-.cake-svg {
-    margin: 30px auto;
-    width: 360px;
-}
+.cake-svg { margin: 30px auto; width: 360px; }
 
 /* Sparkle animation */
-.sparkles circle {
-    fill: white;
-    animation: sparkle 1.5s infinite alternate;
-}
+.sparkles circle { fill: white; animation: sparkle 1.5s infinite alternate; }
 
-@keyframes sparkle {
-    from { opacity: 0.3; }
-    to { opacity: 1; }
-}
+@keyframes sparkle { from {opacity:0.3;} to{opacity:1;} }
 
 /* Firework animation */
-.firework {
-    fill: gold;
-    animation: firework 1.2s infinite;
-}
+.firework { fill: gold; animation: firework 1.2s infinite; }
 
-@keyframes firework {
-    0% { r: 2; opacity: 1; }
-    100% { r: 25; opacity: 0; }
-}
+@keyframes firework { 0%{r:2;opacity:1;} 100%{r:25;opacity:0;} }
 
-/* Optional photo styling */
+/* Photo styling */
 #photo {
-    width: 260px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    margin: 15px 0;
+    width:260px;
+    border-radius:15px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.3);
+    margin:15px 0;
+    opacity:0;
+    transition: opacity 1s ease-in-out;
 }
