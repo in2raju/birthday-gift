@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy 27th Birthday 🎉</title>
+<title>Happy Birthday Barsha! 🎉</title>
 <style>
     body { 
         margin:0; 
@@ -23,25 +23,25 @@
         text-shadow: 0 0 15px #fff, 0 0 30px #ff6f91; 
     }
 
-    /* Detailed Counter Style */
     #detailedAge {
         display: none;
         background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(5px);
-        padding: 15px;
-        border-radius: 15px;
-        margin: 10px auto;
+        backdrop-filter: blur(8px);
+        padding: 20px;
+        border-radius: 20px;
+        margin: 15px auto;
         max-width: 500px;
         font-size: 18px;
-        line-height: 1.6;
+        line-height: 1.8;
+        border: 1px solid rgba(255,255,255,0.3);
     }
-    .time-unit { font-weight: bold; color: #d6336c; }
+    .time-unit { font-weight: bold; color: #d6336c; font-size: 22px; }
 
     button { 
-        padding: 15px 35px; 
+        padding: 15px 40px; 
         border: none; 
         border-radius: 30px; 
-        font-size: 18px; 
+        font-size: 20px; 
         cursor: pointer; 
         background: white;
         color: #ff6f91;
@@ -52,20 +52,20 @@
     button:hover { background: #ff6f91; color: white; transform: scale(1.05); }
 
     #photo { 
-        width: 280px; 
-        height: 280px;
+        width: 300px; 
+        height: 300px;
         object-fit: cover;
-        border: 6px solid white;
+        border: 8px solid white;
         border-radius: 20px; 
-        margin: 20px auto; 
+        margin: 25px auto; 
         display: none; 
         opacity: 0; 
         transition: opacity 0.8s ease-in-out; 
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
     
-    #loveMessage { font-size: 24px; margin: 15px 0; display: none; font-weight: bold; }
-    .cake-svg { margin: 10px auto; width: 320px; }
+    #loveMessage { font-size: 26px; margin: 15px 0; display: none; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+    .cake-svg { margin: 10px auto; width: 340px; }
     #confetti, #fireworks { position: fixed; top:0; left:0; pointer-events:none; z-index:1; }
 </style>
 </head>
@@ -75,27 +75,28 @@
 <canvas id="fireworks"></canvas>
 
 <div class="container">
-    <h1>🎉 Happy Birthday! 🎂</h1>
+    <h1>🎉 Happy Birthday, Barsha! 🎂</h1>
     <div class="age-box" id="ageBox">0 Years</div>
     
     <div id="detailedAge">
-        <div>You have been wonderful for:</div>
+        <div>You have been brightening the world for:</div>
         <div id="liveClock"></div>
     </div>
 
-    <button id="surpriseBtn">💌 Click for Surprise</button>
+    <button id="surpriseBtn">💌 Open Surprise</button>
 
     <img id="photo" src="" alt="Birthday Photo">
 
-    <div id="loveMessage">❤️ Wishing you endless happiness ❤️</div>
+    <div id="loveMessage">❤️ Wishing you a day as beautiful as you are ❤️</div>
 
     <div class="cake-svg">
-        <svg width="300" height="280" viewBox="0 0 360 320">
+        <svg width="340" height="300" viewBox="0 0 360 320">
             <ellipse cx="180" cy="290" rx="140" ry="15" fill="rgba(255,255,255,0.4)"/>
-            <rect x="50" y="200" width="260" height="60" rx="20" fill="#ffb347"/>
-            <rect x="65" y="150" width="230" height="55" rx="20" fill="#ffcc33"/>
-            <rect x="80" y="100" width="200" height="55" rx="20" fill="#ffdd55"/>
-            <text x="180" y="180" text-anchor="middle" font-size="20" fill="#d6336c" font-weight="bold">SINCE 1999</text>
+            <rect x="50" y="200" width="260" height="70" rx="20" fill="#ffb347"/>
+            <rect x="65" y="140" width="230" height="65" rx="20" fill="#ffcc33"/>
+            <text x="180" y="180" text-anchor="middle" font-size="28" fill="#d6336c" font-weight="bold" style="font-family: 'Brush Script MT', cursive;">Barsha</text>
+            <rect x="90" y="90" width="180" height="55" rx="20" fill="#ffdd55"/>
+            <text x="180" y="125" text-anchor="middle" font-size="16" fill="#d6336c" font-weight="bold">HAPPY BIRTHDAY</text>
             <g id="candles"></g>
         </svg>
     </div>
@@ -115,8 +116,8 @@ window.onload = function() {
     /* Generate 27 Candles */
     const candleGroup = document.getElementById("candles");
     for(let i=0; i<27; i++) {
-        let x = 90 + i * 6.5;
-        candleGroup.innerHTML += `<rect x="${x}" y="75" width="4" height="25" fill="#ff4d4d"/><circle cx="${x+2}" cy="70" r="3" fill="gold"><animate attributeName="r" values="2;4;2" dur="0.6s" repeatCount="indefinite"/></circle>`;
+        let x = 95 + i * 6.2;
+        candleGroup.innerHTML += `<rect x="${x}" y="65" width="4" height="25" fill="#ff4d4d"/><circle cx="${x+2}" cy="60" r="3" fill="gold"><animate attributeName="r" values="2;4;2" dur="0.6s" repeatCount="indefinite"/></circle>`;
     }
 
     function updateDetailedAge() {
@@ -131,37 +132,29 @@ window.onload = function() {
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
         liveClock.innerHTML = `
-            <span class="time-unit">${years}</span> Years, 
-            <span class="time-unit">${months}</span> Months, 
-            <span class="time-unit">${days}</span> Days<br>
-            <span class="time-unit">${hours}</span> Hours, 
-            <span class="time-unit">${minutes}</span> Mins, 
-            <span class="time-unit">${seconds}</span> Secs
+            <span class="time-unit">${years}</span> Years, <span class="time-unit">${months}</span> Months, <span class="time-unit">${days}</span> Days<br>
+            <span class="time-unit">${hours}</span> Hours, <span class="time-unit">${minutes}</span> Mins, <span class="time-unit">${seconds}</span> Secs
         `;
     }
 
     btn.addEventListener("click", function() {
         btn.style.display = "none";
         let tempAge = 0;
-        const targetAge = 26; // Current age (turns 27 Jan 2026)
+        const targetAge = 26; // Current age based on 1999 birth year
 
-        // Initial counting animation
         const counter = setInterval(() => {
             tempAge++;
             ageBox.textContent = tempAge + " Years";
             
             if(tempAge >= targetAge) {
                 clearInterval(counter);
-                
-                // Show messages and detailed counter
                 loveMsg.style.display = "block";
                 detailedAge.style.display = "block";
                 
-                // Update the live clock every second
                 setInterval(updateDetailedAge, 1000);
                 updateDetailedAge();
 
-                // Start Photo Slider
+                // Image Slider for pic1.jpg, pic2.jpg, pic3.jpg
                 const photos = ["pic1.jpg", "pic2.jpg", "pic3.jpg"];
                 let current = 0;
                 photo.src = photos[current];
@@ -177,14 +170,13 @@ window.onload = function() {
                     }, 800); 
                 }, 4000);
             }
-        }, 50);
+        }, 60);
     });
 
-    /* --- Background Animations --- */
+    /* --- Background Animations (Confetti & Fireworks) --- */
     const canvas = document.getElementById("confetti");
     const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
     let confetti = Array.from({length: 150}, () => ({
         x: Math.random() * canvas.width, y: Math.random() * canvas.height,
         r: Math.random() * 6 + 2, d: Math.random() * 4 + 2,
@@ -210,7 +202,7 @@ window.onload = function() {
         const x = Math.random() * window.innerWidth;
         const y = Math.random() * (window.innerHeight / 2);
         for(let i=0; i<20; i++) particles.push({x, y, vx: Math.cos(i) * Math.random() * 5, vy: Math.sin(i) * Math.random() * 5, life: 40});
-    }, 1000);
+    }, 1200);
 
     function drawFireworks() {
         fctx.clearRect(0, 0, fw.width, fw.height);
