@@ -2,23 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Happy Birthday 🎂</title>
+    <title>Happy Birthday 🎉</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<canvas id="confetti"></canvas>
+
+<audio id="bgMusic" loop>
+    <source src="music/birthday.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
-    <h1 id="title">🎉 Happy Birthday 🎉</h1>
-    <p class="message">Wishing you lots of love, happiness & smiles 💖</p>
+
+    <h1>🎉 Happy Birthday 🎂</h1>
+
+    <h2 id="countdown"></h2>
+
+    <p class="message">
+        Wishing you endless happiness, love, and smiles 💖
+    </p>
 
     <img id="photo" src="pic1.jpg" alt="Birthday Photo">
 
     <div class="buttons">
-        <button onclick="prevPhoto()">⬅ Previous</button>
+        <button onclick="prevPhoto()">⬅ Prev</button>
         <button onclick="nextPhoto()">Next ➡</button>
     </div>
+
+    <button class="music-btn" onclick="toggleMusic()">🎵 Play / Pause Music</button>
+
+    <button class="surprise-btn" onclick="showLove()">💌 Click for Surprise</button>
+
+    <div id="loveMessage" class="hidden">
+        ❤️ You are the most special person in my life ❤️
+    </div>
+
+    <!-- Cake -->
+    <div class="cake">
+        <div class="plate"></div>
+        <div class="layer layer-bottom"></div>
+        <div class="layer layer-middle"></div>
+        <div class="layer layer-top"></div>
+        <div class="candle"></div>
+    </div>
+
 </div>
-<canvas id="confetti"></canvas>
 
 <script src="script.js"></script>
 </body>
