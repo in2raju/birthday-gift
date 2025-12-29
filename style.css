@@ -1,9 +1,108 @@
-body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(135deg,#ff9a9e,#fad0c4); text-align:center; color:white; }
-.container { padding:20px; }
-h1 { font-size:38px; }
-.age-box { font-size:48px; font-weight:bold; margin:10px 0; text-shadow:0 0 15px #fff,0 0 30px #ff6f91; }
-button { padding:10px 25px; border:none; border-radius:25px; font-size:16px; cursor:pointer; }
-button:hover { background:#ff6f91; color:white; }
-#loveMessage { font-size:22px; margin:15px 0; }
-.cake-svg { margin:30px auto; width:360px; }
-#photo { width:260px; border-radius:15px; margin:15px 0; display:block; opacity:0; transition:opacity 1s ease-in-out; }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    text-align: center;
+    color: white;
+}
+
+/* Confetti */
+#confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+/* Image slider */
+#photo {
+    width: 260px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+    margin-top: 15px;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    margin: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #ff6f91;
+    color: white;
+}
+
+/* Surprise message */
+#loveMessage {
+    display: none;
+    font-size: 22px;
+    margin-top: 15px;
+}
+
+/* Cake */
+.cake {
+    margin: 40px auto;
+    width: 200px;
+}
+
+.plate {
+    width: 220px;
+    height: 20px;
+    background: white;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.layer {
+    width: 200px;
+    height: 60px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.bottom { background: #ffb347; }
+.middle { background: #ffcc33; }
+.top { background: #ffdd55; }
+
+.candle {
+    width: 10px;
+    height: 40px;
+    background: red;
+    margin: auto;
+    position: relative;
+}
+
+.candle::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background: yellow;
+    position: absolute;
+    top: -12px;
+    left: -1px;
+    border-radius: 50%;
+    animation: flame 0.5s infinite alternate;
+}
+
+@keyframes flame {
+    from { transform: scale(1); }
+    to { transform: scale(1.3); }
+}
