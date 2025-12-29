@@ -1,66 +1,55 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     text-align: center;
-    color: #fff;
+    color: white;
+}
+
+/* Confetti fix */
+#confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .container {
+    position: relative;
+    z-index: 1;
     padding: 20px;
 }
 
-h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-}
-
-.message {
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-
 img {
-    width: 280px;
+    width: 260px;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-.buttons button,
-.music-btn,
-.surprise-btn {
-    margin: 10px;
+button {
     padding: 10px 20px;
-    font-size: 16px;
     border: none;
     border-radius: 20px;
+    margin: 10px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-.buttons button:hover,
-.music-btn:hover,
-.surprise-btn:hover {
+button:hover {
     background: #ff6f91;
     color: white;
 }
 
-.hidden {
+/* Surprise message */
+#loveMessage {
     display: none;
     font-size: 22px;
     margin-top: 20px;
 }
 
-/* Confetti */
-#confetti {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-}
-
-/* Cake Animation */
+/* Cake */
 .cake {
-    position: relative;
     margin: 40px auto;
     width: 200px;
 }
@@ -76,13 +65,13 @@ img {
 .layer {
     width: 200px;
     height: 60px;
-    border-radius: 10px;
     margin: auto;
+    border-radius: 10px;
 }
 
-.layer-bottom { background: #ffb347; }
-.layer-middle { background: #ffcc33; }
-.layer-top { background: #ffdd55; }
+.bottom { background: #ffb347; }
+.middle { background: #ffcc33; }
+.top { background: #ffdd55; }
 
 .candle {
     width: 10px;
