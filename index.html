@@ -1,45 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Happy Birthday 🎉</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Happy 27th Birthday 🎉</title>
+<style>
+body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(135deg,#ff9a9e,#fad0c4); text-align:center; color:white; }
+.container { padding:20px; position: relative; z-index: 2; }
+h1 { font-size:38px; }
+.age-box { font-size:48px; font-weight:bold; margin:10px 0; text-shadow:0 0 15px #fff,0 0 30px #ff6f91; }
+button { padding:10px 25px; border:none; border-radius:25px; font-size:16px; cursor:pointer; }
+button:hover { background:#ff6f91; color:white; }
+#loveMessage { font-size:22px; margin:15px 0; display:none; }
+.cake-svg { margin:30px auto; width:360px; }
+#photo { width:260px; border-radius:15px; margin:15px 0; display:block; opacity:0; transition:opacity 1s ease-in-out; }
+#confetti, #fireworks { position: fixed; top:0; left:0; pointer-events:none; z-index:1; }
+.sparkles circle { fill:white; animation:sparkle 1.5s infinite alternate; }
+@keyframes sparkle { from{opacity:0.3;} to{opacity:1;} }
+.firework { fill:gold; animation:firework 1.2s infinite; }
+@keyframes firework { 0%{r:2;opacity:1;} 100%{r:25;opacity:0;} }
+</style>
 </head>
 <body>
 
 <canvas id="confetti"></canvas>
+<canvas id="fireworks"></canvas>
 
 <div class="container">
 
-    <h1>🎉 Happy Birthday 🎂</h1>
-    <h2 id="countdown"></h2>
+<h1>🎉 Happy 27th Birthday 🎂</h1>
 
-    <p class="message">
-        Wishing you love, happiness and endless smiles 💖
-    </p>
+<div class="age-box" id="ageBox">0 Years</div>
+<button id="surpriseBtn">💌 Click for Surprise</button>
 
-    <!-- AUTO IMAGE SLIDER -->
-    <img id="photo" src="pic1.jpg" alt="Birthday Photo">
+<img id="photo" src="" alt="Birthday Photo">
 
-    <br>
+<div id="loveMessage">❤️ Wishing you endless happiness ❤️</div>
 
-    <button class="surprise-btn" onclick="showLove()">💌 Click for Surprise</button>
-
-    <div id="loveMessage">
-        ❤️ You are the most special part of my life ❤️
-    </div>
-
-    <!-- CAKE -->
-    <div class="cake">
-        <div class="plate"></div>
-        <div class="layer bottom"></div>
-        <div class="layer middle"></div>
-        <div class="layer top"></div>
-        <div class="candle"></div>
-    </div>
+<div class="cake-svg">
+<svg width="360" height="320" viewBox="0 0 360 320">
+<g class="sparkles">
+<circle cx="60" cy="80" r="3"/>
+<circle cx="300" cy="90" r="3"/>
+<circle cx="100" cy="40" r="3"/>
+<circle cx="260" cy="50" r="3"/>
+</g>
+<circle class="firework" cx="180" cy="30" r="5"/>
+<ellipse cx="180" cy="290" rx="140" ry="15" fill="#fff"/>
+<rect x="50" y="200" width="260" height="60" rx="20" fill="#ffb347"/>
+<rect x="65" y="150" width="230" height="55" rx="20" fill="#ffcc33"/>
+<rect x="80" y="100" width="200" height="55" rx="20" fill="#ffdd55"/>
+<text x="180" y="185" text-anchor="middle" font-size="26" fill="#d6336c" font-weight="bold">❤️ YOUR NAME ❤️</text>
+<g id="candles"></g>
+</svg>
+</div>
 
 </div>
 
-<script src="script.js"></script>
+<script>
+window.onload=function(){
+const ageBox=document.getElementById("ageBox");
+const photo=document.getElementById("photo");
+const loveMsg=document.getElementById("loveMessage");
+const btn=document.getElementById("surpriseBtn");
+
+/* Create 27 candles */
+const candleGroup=document.getElementById("candles");
+for(let i=0;i<27;i++){
+let x=90+i*7;
+candleGroup.innerHTML+=`<rect x="${x}" y="70" width="6" height="25" fill="#ff4d4d"/>
+<circle cx="${x+3}" cy="65" r="4" fill="gold">
+<animate attributeName="r" values="3;5;3" dur="0.6s" repeatCount="indefinite"/></circle>`;
+}
+
+/* Surprise Button */
+btn.addEventListener("click",function(){
+btn.disabled=true;
+let age=0;
+const targetAge=27;
+const counter=setInterval(()=>{
+age++;
+ageBox.textContent=age+" Years";
+if(age>=targetAge){
+clearInterval(counter);
+loveMsg.style.display="block";
+
+/* Image slider */
+const photos=["pic1.jpg","pic2.jpg","pic3.jpg"];
+let current=0;
+photo.src=photos[current];
+photo.style.opacity=1;
+photo.style.display="block";
+setInterval(()=>{
+current=(current+1)%photos.length;
+photo.style.opacity=0;
+setTimeout(()=>{
+photo.src=photos[current];
+photo.style.opacity=1;
+},500);
+},3000);
+}
+},100);
+});
+
+/* Confetti */
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let confetti=Array.from({length:150},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*6+2,d:Math.random()*4+2}));
+function drawConfetti(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+confetti.forEach(c=>{
+ctx.beginPath();
+ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`;
+ctx.fill();
+c.y+=c.d;
+if(c.y>canvas.height)c.y=0;
+});
+requestAnimationFrame(drawConfetti);
+}
+drawConfetti();
+
+/* Fireworks */
+const fw=document.getElementById("fireworks");
+const fctx=fw.getContext("2d");
+fw.width=window.innerWidth;
+fw.height=window.innerHeight;
+let particles=[];
+setInterval(()=>{
+const x=window.innerWidth/2;
+const y=150;
+for(let i=0;i<30;i++){
+particles.push({x,y,vx:Math.cos(i)*Math.random()*4,vy:Math.sin(i)*Math.random()*4,life:30});
+}
+},1200);
+function drawFireworks(){
+fctx.clearRect(0,0,fw.width,fw.height);
+particles.forEach(p=>{
+fctx.fillStyle="gold";
+fctx.fillRect(p.x,p.y,2,2);
+p.x+=p.vx;
+p.y+=p.vy;
+p.life--;
+});
+particles=particles.filter(p=>p.life>0);
+requestAnimationFrame(drawFireworks);
+}
+drawFireworks();
+};
+</script>
 </body>
 </html>
