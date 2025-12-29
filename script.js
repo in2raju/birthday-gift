@@ -1,8 +1,8 @@
 /* AUTO IMAGE SLIDER */
 const photos = [
-    "images/pic1.jpg",
-    "images/pic2.jpg",
-    "images/pic3.jpg"
+    "pic1.jpg",
+    "pic2.jpg",
+    "pic3.jpg"
 ];
 
 let current = 0;
