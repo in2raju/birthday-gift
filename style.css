@@ -6,62 +6,29 @@ body {
     color: white;
 }
 
-/* Confetti */
-#confetti {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    pointer-events: none;
-}
-
 .container {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     padding: 20px;
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 38px;
 }
 
-/* AGE ANIMATION */
 .age-box {
-    font-size: 60px;
+    font-size: 48px;
     font-weight: bold;
-    margin: 15px 0;
-    text-shadow: 0 0 10px #fff, 0 0 20px #ff6f91;
-    animation: glow 1.5s infinite alternate;
+    margin: 10px 0;
+    text-shadow: 0 0 15px #fff, 0 0 30px #ff6f91;
 }
 
-.years {
-    font-size: 28px;
-    margin-left: 10px;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 10px #fff; }
-    to { text-shadow: 0 0 30px #ff6f91; }
-}
-
-/* Image slider */
-#photo {
-    width: 260px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    opacity: 1;
-    transition: opacity 1s ease-in-out;
-    margin-top: 15px;
-}
-
-/* Buttons */
 button {
-    padding: 10px 20px;
+    padding: 10px 25px;
     border: none;
-    border-radius: 20px;
-    margin: 15px;
-    cursor: pointer;
+    border-radius: 25px;
     font-size: 16px;
+    cursor: pointer;
 }
 
 button:hover {
@@ -69,64 +36,55 @@ button:hover {
     color: white;
 }
 
-/* Surprise message */
 #loveMessage {
     display: none;
     font-size: 22px;
-    margin-top: 15px;
+    margin: 15px 0;
 }
 
-/* Cake */
-.cake {
-    margin: 40px auto;
-    width: 200px;
+/* Confetti & fireworks */
+#confetti, #fireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }
 
-.plate {
-    width: 220px;
-    height: 20px;
-    background: white;
-    border-radius: 10px;
-    margin: auto;
-}
+#confetti { z-index: 0; }
+#fireworks { z-index: 1; }
 
-.layer {
-    width: 200px;
-    height: 60px;
-    margin: auto;
-    border-radius: 10px;
-}
-
-.bottom { background: #ffb347; }
-.middle { background: #ffcc33; }
-.top { background: #ffdd55; }
-
-.candle {
-    width: 10px;
-    height: 40px;
-    background: red;
-    margin: auto;
-    position: relative;
-}
-
-.candle::before {
-    content: "";
-    width: 12px;
-    height: 12px;
-    background: yellow;
-    position: absolute;
-    top: -12px;
-    left: -1px;
-    border-radius: 50%;
-    animation: flame 0.5s infinite alternate;
-}
+/* Cake SVG */
 .cake-svg {
-    margin: 40px auto;
-    width: 260px;
+    margin: 30px auto;
+    width: 360px;
 }
 
+/* Sparkle animation */
+.sparkles circle {
+    fill: white;
+    animation: sparkle 1.5s infinite alternate;
+}
 
-@keyframes flame {
-    from { transform: scale(1); }
-    to { transform: scale(1.3); }
+@keyframes sparkle {
+    from { opacity: 0.3; }
+    to { opacity: 1; }
+}
+
+/* Firework animation */
+.firework {
+    fill: gold;
+    animation: firework 1.2s infinite;
+}
+
+@keyframes firework {
+    0% { r: 2; opacity: 1; }
+    100% { r: 25; opacity: 0; }
+}
+
+/* Optional photo styling */
+#photo {
+    width: 260px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    margin: 15px 0;
 }
