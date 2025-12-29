@@ -2,22 +2,61 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy 27th Birthday 🎉</title>
 <style>
-body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(135deg,#ff9a9e,#fad0c4); text-align:center; color:white; }
-.container { padding:20px; position: relative; z-index: 2; }
-h1 { font-size:38px; }
-.age-box { font-size:48px; font-weight:bold; margin:10px 0; text-shadow:0 0 15px #fff,0 0 30px #ff6f91; }
-button { padding:10px 25px; border:none; border-radius:25px; font-size:16px; cursor:pointer; }
-button:hover { background:#ff6f91; color:white; }
-#loveMessage { font-size:22px; margin:15px 0; display:none; }
-.cake-svg { margin:30px auto; width:360px; }
-#photo { width:260px; border-radius:15px; margin:15px 0; display:block; opacity:0; transition:opacity 1s ease-in-out; }
-#confetti, #fireworks { position: fixed; top:0; left:0; pointer-events:none; z-index:1; }
-.sparkles circle { fill:white; animation:sparkle 1.5s infinite alternate; }
-@keyframes sparkle { from{opacity:0.3;} to{opacity:1;} }
-.firework { fill:gold; animation:firework 1.2s infinite; }
-@keyframes firework { 0%{r:2;opacity:1;} 100%{r:25;opacity:0;} }
+    body { 
+        margin:0; 
+        font-family: Arial, sans-serif; 
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4); 
+        text-align: center; 
+        color: white; 
+        overflow-x: hidden;
+    }
+    .container { 
+        padding: 20px; 
+        position: relative; 
+        z-index: 2; 
+    }
+    h1 { font-size: 38px; margin-top: 50px; }
+    .age-box { 
+        font-size: 52px; 
+        font-weight: bold; 
+        margin: 15px 0; 
+        text-shadow: 0 0 15px #fff, 0 0 30px #ff6f91; 
+    }
+    button { 
+        padding: 15px 35px; 
+        border: none; 
+        border-radius: 30px; 
+        font-size: 18px; 
+        cursor: pointer; 
+        background: white;
+        color: #ff6f91;
+        font-weight: bold;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
+    button:hover { background: #ff6f91; color: white; transform: scale(1.05); }
+    button:disabled { background: #ccc; color: #666; cursor: not-allowed; }
+
+    #loveMessage { font-size: 24px; margin: 20px 0; display: none; font-weight: bold; }
+    
+    #photo { 
+        width: 280px; 
+        height: 280px;
+        object-fit: cover;
+        border: 6px solid white;
+        border-radius: 20px; 
+        margin: 20px auto; 
+        display: none; 
+        opacity: 0; 
+        transition: opacity 0.8s ease-in-out; 
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    
+    .cake-svg { margin: 20px auto; width: 360px; }
+    #confetti, #fireworks { position: fixed; top:0; left:0; pointer-events:none; z-index:1; }
 </style>
 </head>
 <body>
@@ -26,128 +65,132 @@ button:hover { background:#ff6f91; color:white; }
 <canvas id="fireworks"></canvas>
 
 <div class="container">
+    <h1>🎉 Happy 27th Birthday 🎂</h1>
+    <div class="age-box" id="ageBox">0 Years</div>
+    <button id="surpriseBtn">💌 Click for Surprise</button>
 
-<h1>🎉 Happy 27th Birthday 🎂</h1>
+    <img id="photo" src="" alt="Birthday Photo">
 
-<div class="age-box" id="ageBox">0 Years</div>
-<button id="surpriseBtn">💌 Click for Surprise</button>
+    <div id="loveMessage">❤️ Wishing you endless happiness ❤️</div>
 
-<img id="photo" src="" alt="Birthday Photo">
-
-<div id="loveMessage">❤️ Wishing you endless happiness ❤️</div>
-
-<div class="cake-svg">
-<svg width="360" height="320" viewBox="0 0 360 320">
-<g class="sparkles">
-<circle cx="60" cy="80" r="3"/>
-<circle cx="300" cy="90" r="3"/>
-<circle cx="100" cy="40" r="3"/>
-<circle cx="260" cy="50" r="3"/>
-</g>
-<circle class="firework" cx="180" cy="30" r="5"/>
-<ellipse cx="180" cy="290" rx="140" ry="15" fill="#fff"/>
-<rect x="50" y="200" width="260" height="60" rx="20" fill="#ffb347"/>
-<rect x="65" y="150" width="230" height="55" rx="20" fill="#ffcc33"/>
-<rect x="80" y="100" width="200" height="55" rx="20" fill="#ffdd55"/>
-<text x="180" y="185" text-anchor="middle" font-size="26" fill="#d6336c" font-weight="bold">❤️ YOUR NAME ❤️</text>
-<g id="candles"></g>
-</svg>
-</div>
-
+    <div class="cake-svg">
+        <svg width="360" height="320" viewBox="0 0 360 320">
+            <ellipse cx="180" cy="290" rx="140" ry="15" fill="rgba(255,255,255,0.4)"/>
+            <rect x="50" y="200" width="260" height="60" rx="20" fill="#ffb347"/>
+            <rect x="65" y="150" width="230" height="55" rx="20" fill="#ffcc33"/>
+            <rect x="80" y="100" width="200" height="55" rx="20" fill="#ffdd55"/>
+            <text x="180" y="180" text-anchor="middle" font-size="20" fill="#d6336c" font-weight="bold">CELEBRATING YOU!</text>
+            <g id="candles"></g>
+        </svg>
+    </div>
 </div>
 
 <script>
-window.onload=function(){
-const ageBox=document.getElementById("ageBox");
-const photo=document.getElementById("photo");
-const loveMsg=document.getElementById("loveMessage");
-const btn=document.getElementById("surpriseBtn");
+window.onload = function() {
+    const ageBox = document.getElementById("ageBox");
+    const photo = document.getElementById("photo");
+    const loveMsg = document.getElementById("loveMessage");
+    const btn = document.getElementById("surpriseBtn");
 
-/* Create 27 candles */
-const candleGroup=document.getElementById("candles");
-for(let i=0;i<27;i++){
-let x=90+i*7;
-candleGroup.innerHTML+=`<rect x="${x}" y="70" width="6" height="25" fill="#ff4d4d"/>
-<circle cx="${x+3}" cy="65" r="4" fill="gold">
-<animate attributeName="r" values="3;5;3" dur="0.6s" repeatCount="indefinite"/></circle>`;
-}
+    /* Generate 27 Candles */
+    const candleGroup = document.getElementById("candles");
+    for(let i=0; i<27; i++) {
+        let x = 90 + i * 6.5;
+        candleGroup.innerHTML += `
+            <rect x="${x}" y="75" width="4" height="25" fill="#ff4d4d"/>
+            <circle cx="${x+2}" cy="70" r="3" fill="gold">
+                <animate attributeName="r" values="2;4;2" dur="0.6s" repeatCount="indefinite"/>
+            </circle>`;
+    }
 
-/* Surprise Button */
-btn.addEventListener("click",function(){
-btn.disabled=true;
-let age=0;
-const targetAge=27;
-const counter=setInterval(()=>{
-age++;
-ageBox.textContent=age+" Years";
-if(age>=targetAge){
-clearInterval(counter);
-loveMsg.style.display="block";
+    /* Button Action */
+    btn.addEventListener("click", function() {
+        btn.style.display = "none";
+        let age = 0;
+        const targetAge = 27;
+        
+        const counter = setInterval(() => {
+            age++;
+            ageBox.textContent = age + " Years";
+            
+            if(age >= targetAge) {
+                clearInterval(counter);
+                loveMsg.style.display = "block";
+                
+                // Start Slide Show
+                const photos = ["pic1.jpg", "pic2.jpg", "pic3.jpg"];
+                let current = 0;
+                
+                photo.src = photos[current];
+                photo.style.display = "block";
+                
+                // Small delay to allow 'display: block' to register before fading in
+                setTimeout(() => { photo.style.opacity = 1; }, 50);
 
-/* Image slider */
-const photos=["pic1.jpg","pic2.jpg","pic3.jpg"];
-let current=0;
-photo.src=photos[current];
-photo.style.opacity=1;
-photo.style.display="block";
-setInterval(()=>{
-current=(current+1)%photos.length;
-photo.style.opacity=0;
-setTimeout(()=>{
-photo.src=photos[current];
-photo.style.opacity=1;
-},500);
-},3000);
-}
-},100);
-});
+                setInterval(() => {
+                    photo.style.opacity = 0; // Fade out
+                    setTimeout(() => {
+                        current = (current + 1) % photos.length;
+                        photo.src = photos[current];
+                        photo.style.opacity = 1; // Fade in
+                    }, 800); 
+                }, 4000);
+            }
+        }, 80);
+    });
 
-/* Confetti */
-const canvas=document.getElementById("confetti");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-let confetti=Array.from({length:150},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*6+2,d:Math.random()*4+2}));
-function drawConfetti(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-confetti.forEach(c=>{
-ctx.beginPath();
-ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
-ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`;
-ctx.fill();
-c.y+=c.d;
-if(c.y>canvas.height)c.y=0;
-});
-requestAnimationFrame(drawConfetti);
-}
-drawConfetti();
+    /* Background Effects */
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let confetti = Array.from({length: 150}, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 6 + 2,
+        d: Math.random() * 4 + 2,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`
+    }));
 
-/* Fireworks */
-const fw=document.getElementById("fireworks");
-const fctx=fw.getContext("2d");
-fw.width=window.innerWidth;
-fw.height=window.innerHeight;
-let particles=[];
-setInterval(()=>{
-const x=window.innerWidth/2;
-const y=150;
-for(let i=0;i<30;i++){
-particles.push({x,y,vx:Math.cos(i)*Math.random()*4,vy:Math.sin(i)*Math.random()*4,life:30});
-}
-},1200);
-function drawFireworks(){
-fctx.clearRect(0,0,fw.width,fw.height);
-particles.forEach(p=>{
-fctx.fillStyle="gold";
-fctx.fillRect(p.x,p.y,2,2);
-p.x+=p.vx;
-p.y+=p.vy;
-p.life--;
-});
-particles=particles.filter(p=>p.life>0);
-requestAnimationFrame(drawFireworks);
-}
-drawFireworks();
+    function drawConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confetti.forEach(c => {
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+            ctx.fillStyle = c.color;
+            ctx.fill();
+            c.y += c.d;
+            if (c.y > canvas.height) c.y = -10;
+        });
+        requestAnimationFrame(drawConfetti);
+    }
+    drawConfetti();
+
+    const fw = document.getElementById("fireworks");
+    const fctx = fw.getContext("2d");
+    fw.width = window.innerWidth;
+    fw.height = window.innerHeight;
+    let particles = [];
+
+    setInterval(() => {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * (window.innerHeight / 2);
+        for(let i=0; i<20; i++) {
+            particles.push({x, y, vx: Math.cos(i) * Math.random() * 5, vy: Math.sin(i) * Math.random() * 5, life: 40});
+        }
+    }, 1000);
+
+    function drawFireworks() {
+        fctx.clearRect(0, 0, fw.width, fw.height);
+        particles.forEach(p => {
+            fctx.fillStyle = "gold";
+            fctx.fillRect(p.x, p.y, 3, 3);
+            p.x += p.vx; p.y += p.vy; p.life--;
+        });
+        particles = particles.filter(p => p.life > 0);
+        requestAnimationFrame(drawFireworks);
+    }
+    drawFireworks();
 };
 </script>
 </body>
