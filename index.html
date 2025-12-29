@@ -8,52 +8,52 @@
 <body>
 
 <canvas id="confetti"></canvas>
+<canvas id="fireworks"></canvas>
 
 <div class="container">
 
-    <h1>🎉 Happy Birthday 🎂</h1>
+    <h1>🎉 Happy 27th Birthday 🎂</h1>
 
-    <!-- AGE ANIMATION -->
-    <div class="age-box">
-        <span id="age">0</span>
-        <span class="years">Years</span>
-    </div>
+    <div class="age-box">27 Years</div>
 
-    <h2 id="countdown"></h2>
-
-    <p class="message">
-        Celebrating 27 beautiful years of your amazing life 💖
-    </p>
-
+    <!-- Optional single photo -->
     <img id="photo" src="pic1.jpg" alt="Birthday Photo">
 
-    <button class="surprise-btn" onclick="showLove()">💌 Click for Surprise</button>
+    <button onclick="showLove()">💌 Click for Surprise</button>
+    <div id="loveMessage">❤️ Wishing you endless happiness ❤️</div>
 
-    <div id="loveMessage">
-        ❤️ 27 years of memories, smiles, and love ❤️
+    <!-- SVG Cake -->
+    <div class="cake-svg">
+        <svg width="360" height="320" viewBox="0 0 360 320">
+            <!-- Sparkles -->
+            <g class="sparkles">
+                <circle cx="60" cy="80" r="3"/>
+                <circle cx="300" cy="90" r="3"/>
+                <circle cx="100" cy="40" r="3"/>
+                <circle cx="260" cy="50" r="3"/>
+            </g>
+
+            <!-- Firework -->
+            <circle class="firework" cx="180" cy="30" r="5"/>
+
+            <!-- Plate -->
+            <ellipse cx="180" cy="290" rx="140" ry="15" fill="#fff"/>
+
+            <!-- Cake layers -->
+            <rect x="50" y="200" width="260" height="60" rx="20" fill="#ffb347"/>
+            <rect x="65" y="150" width="230" height="55" rx="20" fill="#ffcc33"/>
+            <rect x="80" y="100" width="200" height="55" rx="20" fill="#ffdd55"/>
+
+            <!-- Name -->
+            <text x="180" y="185" text-anchor="middle"
+                  font-size="26" fill="#d6336c" font-weight="bold">
+                ❤️ YOUR NAME ❤️
+            </text>
+
+            <!-- 27 Candles -->
+            <g id="candles"></g>
+        </svg>
     </div>
-
-   <!-- CLEAR SVG CAKE -->
-<div class="cake-svg">
-<svg width="260" height="260" viewBox="0 0 260 260">
-  <!-- Plate -->
-  <ellipse cx="130" cy="220" rx="110" ry="15" fill="#ffffff"/>
-
-  <!-- Cake layers -->
-  <rect x="40" y="150" width="180" height="50" rx="15" fill="#ffb347"/>
-  <rect x="50" y="110" width="160" height="45" rx="15" fill="#ffcc33"/>
-  <rect x="60" y="70"  width="140" height="45" rx="15" fill="#ffdd55"/>
-
-  <!-- Candle -->
-  <rect x="125" y="30" width="10" height="40" fill="#ff4d4d"/>
-
-  <!-- Flame -->
-  <circle cx="130" cy="25" r="8" fill="gold">
-    <animate attributeName="r" values="6;9;6" dur="0.6s" repeatCount="indefinite"/>
-  </circle>
-</svg>
-</div>
-
 
 </div>
 
