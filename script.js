@@ -1,68 +1,31 @@
-/* AGE COUNT-UP ANIMATION */
-let age = 0;
-const targetAge = 27;
-const ageEl = document.getElementById("age");
-
-const ageInterval = setInterval(() => {
-    age++;
-    ageEl.textContent = age;
-    if (age === targetAge) clearInterval(ageInterval);
-}, 80);
-
-/* AUTO IMAGE SLIDER */
-const photos = [
-    "pic1.jpg",
-    "pic2.jpg",
-    "pic3.jpg"
-];
-
-let current = 0;
-const img = document.getElementById("photo");
-
-function autoSlide() {
-    img.style.opacity = 0;
-    setTimeout(() => {
-        current = (current + 1) % photos.length;
-        img.src = photos[current];
-        img.style.opacity = 1;
-    }, 1000);
-}
-
-setInterval(autoSlide, 3000);
-
-/* SURPRISE MESSAGE */
+/* Surprise Message */
 function showLove() {
     document.getElementById("loveMessage").style.display = "block";
 }
 
-/* COUNTDOWN */
-const birthday = new Date("2025-01-01 00:00:00").getTime(); // CHANGE DATE
+/* Create 27 Candles */
+const candleGroup = document.getElementById("candles");
+const startX = 90;
+const gap = 7;
 
-setInterval(() => {
-    const now = new Date().getTime();
-    const diff = birthday - now;
+for (let i = 0; i < 27; i++) {
+    const x = startX + i * gap;
+    candleGroup.innerHTML += `
+        <rect x="${x}" y="70" width="6" height="25" fill="#ff4d4d"/>
+        <circle cx="${x + 3}" cy="65" r="4" fill="gold">
+            <animate attributeName="r" values="3;5;3"
+                     dur="0.6s" repeatCount="indefinite"/>
+        </circle>
+    `;
+}
 
-    if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = "🎉 Happy Birthday! 🎉";
-        return;
-    }
-
-    const d = Math.floor(diff / (1000*60*60*24));
-    const h = Math.floor((diff / (1000*60*60)) % 24);
-    const m = Math.floor((diff / (1000*60)) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("countdown").innerHTML =
-        `⏰ ${d}d ${h}h ${m}m ${s}s left`;
-}, 1000);
-
-/* CONFETTI */
+/* Confetti */
 const canvas = document.getElementById("confetti");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let confetti = Array.from({ length: 120 }, () => ({
+let confetti = Array.from({length: 150}, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
     r: Math.random() * 6 + 2,
@@ -74,7 +37,7 @@ function drawConfetti() {
     confetti.forEach(c => {
         ctx.beginPath();
         ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsl(${Math.random() * 360},100%,50%)`;
+        ctx.fillStyle = `hsl(${Math.random()*360},100%,50%)`;
         ctx.fill();
         c.y += c.d;
         if (c.y > canvas.height) c.y = 0;
@@ -82,3 +45,38 @@ function drawConfetti() {
     requestAnimationFrame(drawConfetti);
 }
 drawConfetti();
+
+/* Fireworks Canvas */
+const fw = document.getElementById("fireworks");
+const fctx = fw.getContext("2d");
+fw.width = window.innerWidth;
+fw.height = window.innerHeight;
+
+let particles = [];
+
+setInterval(() => {
+    const x = window.innerWidth / 2;
+    const y = 150;
+    for (let i = 0; i < 30; i++) {
+        particles.push({
+            x, y,
+            vx: Math.cos(i) * Math.random() * 4,
+            vy: Math.sin(i) * Math.random() * 4,
+            life: 30
+        });
+    }
+}, 1200);
+
+function drawFireworks() {
+    fctx.clearRect(0, 0, fw.width, fw.height);
+    particles.forEach(p => {
+        fctx.fillStyle = "gold";
+        fctx.fillRect(p.x, p.y, 2, 2);
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life--;
+    });
+    particles = particles.filter(p => p.life > 0);
+    requestAnimationFrame(drawFireworks);
+}
+drawFireworks();
