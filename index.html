@@ -32,10 +32,10 @@
         opacity: 0;
         transition: opacity 2s ease-in;
         width: 100%;
-        padding: 20px;
+        /* padding: 20px; REMOVED padding to give more space for spinning */
     }
 
-    h1 { font-size: 42px; text-shadow: 2px 2px 10px rgba(0,0,0,0.2); margin-bottom: 5px; }
+    h1 { font-size: 42px; text-shadow: 2px 2px 10px rgba(0,0,0,0.2); margin-bottom: 5px; margin-top: 20px;}
     
     .age-box { 
         font-size: 55px; 
@@ -47,15 +47,15 @@
     #detailedAge {
         background: rgba(255, 255, 255, 0.25);
         backdrop-filter: blur(12px);
-        padding: 20px;
+        padding: 15px;
         border-radius: 25px;
-        margin: 15px auto;
+        margin: 10px auto;
         max-width: 450px;
         border: 1px solid rgba(255,255,255,0.4);
         box-shadow: 0 8px 32px rgba(0,0,0,0.1);
     }
 
-    .time-unit { font-weight: bold; color: #d6336c; font-size: 24px; }
+    .time-unit { font-weight: bold; color: #d6336c; font-size: 22px; }
 
     #surpriseBtn { 
         padding: 20px 50px; 
@@ -67,7 +67,7 @@
         color: #ff6f91;
         font-weight: bold;
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: transform 0.3s;
         animation: pulse 2s infinite;
     }
     #surpriseBtn:hover { transform: scale(1.1); }
@@ -78,32 +78,57 @@
         100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     }
 
-    /* --- MODIFIED PHOTO STYLES --- */
-    #photo { 
-        width: 300px;  /* Increased size slightly */
-        height: 300px;
-        object-fit: cover;
-        /* Removed the original border and border-radius */
-        margin: 20px auto; 
-        opacity: 0; 
-        transition: opacity 1s ease-in-out; 
-        
-        /* Create the triangle shape */
-        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        
-        /* Add a drop shadow that follows the triangle shape */
-        filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
-        
-        /* Add continuous rotation animation */
-        animation: rotatePhoto 20s linear infinite;
+    /* --- NEW TRIANGLE CONTAINER STYLES --- */
+    /* This invisible container holds the images and spins */
+    .triangle-container {
+        position: relative;
+        width: 320px; 
+        height: 320px;
+        margin: 30px auto;
+        /* The container spins clockwise */
+        animation: spinContainer 18s linear infinite;
     }
 
-    /* Keyframes for the photo rotation */
-    @keyframes rotatePhoto {
+    /* The circular images at the corners */
+    .triangle-img {
+        position: absolute;
+        width: 100px;  
+        height: 100px;
+        border-radius: 50%; /* Circular shape */
+        object-fit: cover;
+        border: 5px solid white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        
+        /* Center them initially */
+        top: 50%; left: 50%;
+        /* The translate centers the image on its point. The rotate is the counter-spin. */
+        transform: translate(-50%, -50%) rotate(0deg);
+        
+        /* IMPORTANT: Counter-spin animation to keep faces upright */
+        animation: counterSpin 18s linear infinite;
+    }
+
+    /* Positioning the 3 images at triangle vertices using margins from center */
+    /* Top Vertex */
+    #img1 { margin-top: -140px; } 
+    /* Bottom Right Vertex */
+    #img2 { margin-top: 70px; margin-left: 120px; } 
+    /* Bottom Left Vertex */
+    #img3 { margin-top: 70px; margin-left: -120px; } 
+
+    /* Animation for the main container spinning clockwise */
+    @keyframes spinContainer {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
     }
-    /* --------------------------- */
+    
+    /* Animation for images spinning counter-clockwise to stay upright */
+    /* We must include the translate(-50%, -50%) to keep them centered on their anchor points */
+    @keyframes counterSpin {
+        from { transform: translate(-50%, -50%) rotate(0deg); }
+        to { transform: translate(-50%, -50%) rotate(-360deg); }
+    }
+    /* ------------------------------------ */
     
     .cake-svg { margin: 15px auto; width: 340px; }
     #confetti, #fireworks { position: fixed; top:0; left:0; pointer-events:none; z-index:1; }
@@ -126,7 +151,11 @@
         <div id="liveClock">Calculating the magic...</div>
     </div>
 
-    <img id="photo" src="" alt="Birthday Photo">
+    <div class="triangle-container">
+        <img id="img1" class="triangle-img" src="pic1.jpg" alt="Photo 1">
+        <img id="img2" class="triangle-img" src="pic2.jpg" alt="Photo 2">
+        <img id="img3" class="triangle-img" src="pic3.jpg" alt="Photo 3">
+    </div>
 
     <div class="cake-svg">
         <svg width="340" height="300" viewBox="0 0 360 320">
@@ -149,7 +178,7 @@ window.onload = function() {
     const surpriseBtn = document.getElementById("surpriseBtn");
     const content = document.getElementById("birthdayContent");
     const ageBox = document.getElementById("ageBox");
-    const photo = document.getElementById("photo");
+    // Removed single 'photo' variable as we now have 3 static images
     const liveClock = document.getElementById("liveClock");
     
     // Exact Birth Date: Jan 1, 1999
@@ -204,20 +233,7 @@ window.onload = function() {
                 setInterval(updateDetailedAge, 1000);
                 updateDetailedAge();
 
-                // 5. Start Slideshow (pic1.jpg, pic2.jpg, pic3.jpg)
-                const photos = ["pic1.jpg", "pic2.jpg", "pic3.jpg"];
-                let current = 0;
-                photo.src = photos[current];
-                photo.style.opacity = 1;
-
-                setInterval(() => {
-                    photo.style.opacity = 0;
-                    setTimeout(() => {
-                        current = (current + 1) % photos.length;
-                        photo.src = photos[current];
-                        photo.style.opacity = 1;
-                    }, 800);
-                }, 4000);
+                // (Slideshow logic removed because we are showing all 3 images at once now)
             }
         }, 60);
 
