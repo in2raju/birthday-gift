@@ -28,11 +28,10 @@
 
     /* Hidden Content Container */
     #birthdayContent {
-        display: none; /* Entirely hidden at start */
+        display: none;
         opacity: 0;
         transition: opacity 2s ease-in;
         width: 100%;
-        /* padding: 20px; REMOVED padding to give more space for spinning */
     }
 
     h1 { font-size: 42px; text-shadow: 2px 2px 10px rgba(0,0,0,0.2); margin-bottom: 5px; margin-top: 20px;}
@@ -73,68 +72,64 @@
     #surpriseBtn:hover { transform: scale(1.1); }
 
     @keyframes pulse {
-        0% { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         50% { transform: scale(1.05); box-shadow: 0 15px 45px rgba(255,255,255,0.5); }
-        100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     }
 
-    /* --- NEW TRIANGLE CONTAINER STYLES --- */
-    /* This invisible container holds the images and spins */
+    /* --- TRIANGLE CONTAINER WITH EDGES --- */
     .triangle-container {
         position: relative;
-        width: 320px; 
-        height: 320px;
+        width: 350px; 
+        height: 350px;
         margin: 30px auto;
-        /* The container spins clockwise */
         animation: spinContainer 18s linear infinite;
     }
 
-    /* The circular images at the corners */
+    /* SVG for the connecting edges */
+    .triangle-edges {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 1;
+    }
+
     .triangle-img {
         position: absolute;
         width: 100px;  
         height: 100px;
-        border-radius: 50%; /* Circular shape */
+        border-radius: 50%;
         object-fit: cover;
         border: 5px solid white;
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        
-        /* Center them initially */
+        z-index: 2;
         top: 50%; left: 50%;
-        /* The translate centers the image on its point. The rotate is the counter-spin. */
-        transform: translate(-50%, -50%) rotate(0deg);
-        
-        /* IMPORTANT: Counter-spin animation to keep faces upright */
         animation: counterSpin 18s linear infinite;
     }
 
-    /* Positioning the 3 images at triangle vertices using margins from center */
-    /* Top Vertex */
-    #img1 { margin-top: -140px; } 
-    /* Bottom Right Vertex */
-    #img2 { margin-top: 70px; margin-left: 120px; } 
-    /* Bottom Left Vertex */
-    #img3 { margin-top: 70px; margin-left: -120px; } 
+    /* Geometric Positioning */
+    #img1 { margin-top: -150px; margin-left: -50px; } /* Top center */
+    #img2 { margin-top: 50px; margin-left: 70px; }   /* Bottom right */
+    #img3 { margin-top: 50px; margin-left: -170px; } /* Bottom left */
 
-    /* Animation for the main container spinning clockwise */
     @keyframes spinContainer {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
     }
     
-    /* Animation for images spinning counter-clockwise to stay upright */
-    /* We must include the translate(-50%, -50%) to keep them centered on their anchor points */
     @keyframes counterSpin {
-        from { transform: translate(-50%, -50%) rotate(0deg); }
-        to { transform: translate(-50%, -50%) rotate(-360deg); }
+        from { transform: rotate(0deg); }
+        to { transform: rotate(-360deg); }
     }
-    /* ------------------------------------ */
     
     .cake-svg { margin: 15px auto; width: 340px; }
     #confetti, #fireworks { position: fixed; top:0; left:0; pointer-events:none; z-index:1; }
 </style>
 </head>
 <body>
+
+<audio id="bgMusic" loop>
+    <source src="happy-birthday-155461.mp3" type="audio/mpeg">
+</audio>
 
 <canvas id="confetti"></canvas>
 <canvas id="fireworks"></canvas>
@@ -152,24 +147,28 @@
     </div>
 
     <div class="triangle-container">
+        <svg class="triangle-edges" viewBox="0 0 350 350">
+            <polygon points="175,25 315,275 35,275" fill="none" stroke="white" stroke-width="3" stroke-dasharray="10,5" />
+        </svg>
+
         <img id="img1" class="triangle-img" src="pic1.jpg" alt="Photo 1">
         <img id="img2" class="triangle-img" src="pic2.jpg" alt="Photo 2">
         <img id="img3" class="triangle-img" src="pic3.jpg" alt="Photo 3">
     </div>
-   <h2 id="loveMessage" style="font-style: italic;">❤️ Wishing you endless happiness and love! ❤️</h2>
+
+    <h2 id="loveMessage" style="font-style: italic;">❤️ Wishing you endless happiness and love! ❤️</h2>
+    
     <div class="cake-svg">
         <svg width="340" height="300" viewBox="0 0 360 320">
             <ellipse cx="180" cy="290" rx="140" ry="15" fill="rgba(255,255,255,0.4)"/>
             <rect x="50" y="200" width="260" height="70" rx="20" fill="#ffb347"/>
             <rect x="65" y="140" width="230" height="65" rx="20" fill="#ffcc33"/>
             <text x="180" y="182" text-anchor="middle" font-size="32" fill="#d6336c" font-weight="bold" style="font-family: 'Brush Script MT', cursive;">Barsha</text>
-            
             <rect x="90" y="90" width="180" height="55" rx="20" fill="#ffdd55"/>
             <text x="180" y="125" text-anchor="middle" font-size="16" fill="#d6336c" font-weight="bold">HAPPY BIRTHDAY</text>
             <g id="candles"></g>
         </svg>
     </div>
- 
 </div>
 
 <script>
@@ -178,20 +177,17 @@ window.onload = function() {
     const surpriseBtn = document.getElementById("surpriseBtn");
     const content = document.getElementById("birthdayContent");
     const ageBox = document.getElementById("ageBox");
-    // Removed single 'photo' variable as we now have 3 static images
     const liveClock = document.getElementById("liveClock");
+    const music = document.getElementById("bgMusic");
     
-    // Exact Birth Date: Jan 1, 1999
     const birthDate = new Date("1999-01-01T00:00:00");
 
-    /* Create 27 Candles */
     const candleGroup = document.getElementById("candles");
     for(let i=0; i<27; i++) {
         let x = 95 + i * 6.2;
         candleGroup.innerHTML += `<rect x="${x}" y="65" width="4" height="25" fill="#ff4d4d"/><circle cx="${x+2}" cy="60" r="3" fill="gold"><animate attributeName="r" values="2;4;2" dur="0.6s" repeatCount="indefinite"/></circle>`;
     }
 
-    /* Live Age Logic */
     function updateDetailedAge() {
         const now = new Date();
         let diff = now - birthDate;
@@ -208,36 +204,29 @@ window.onload = function() {
         `;
     }
 
-    /* HANDLE SURPRISE CLICK */
     surpriseBtn.addEventListener("click", function() {
-        // 1. Hide the Start Screen
+        // Play Music
+        music.play().catch(e => console.log("Music play blocked by browser"));
+
         startScreen.style.opacity = "0";
         setTimeout(() => { startScreen.style.display = "none"; }, 1000);
 
-        // 2. Reveal the Content
         content.style.display = "block";
         setTimeout(() => { content.style.opacity = "1"; }, 100);
 
-        // 3. Initial Fast Counter (Counting up to current age)
         let tempAge = 0;
-        const currentYear = new Date().getFullYear();
-        const targetAge = currentYear - 1999; 
+        const targetAge = new Date().getFullYear() - 1999; 
 
         const counter = setInterval(() => {
             tempAge++;
             ageBox.textContent = tempAge + " Years";
             if(tempAge >= targetAge) {
                 clearInterval(counter);
-                
-                // 4. Start the detailed live clock
                 setInterval(updateDetailedAge, 1000);
                 updateDetailedAge();
-
-                // (Slideshow logic removed because we are showing all 3 images at once now)
             }
         }, 60);
 
-        // Start Confetti & Fireworks
         initAnimations();
     });
 
