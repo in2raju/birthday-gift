@@ -78,17 +78,32 @@
         100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     }
 
+    /* --- MODIFIED PHOTO STYLES --- */
     #photo { 
-        width: 280px; 
-        height: 280px;
+        width: 300px;  /* Increased size slightly */
+        height: 300px;
         object-fit: cover;
-        border: 10px solid white;
-        border-radius: 25px; 
+        /* Removed the original border and border-radius */
         margin: 20px auto; 
         opacity: 0; 
         transition: opacity 1s ease-in-out; 
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        
+        /* Create the triangle shape */
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        
+        /* Add a drop shadow that follows the triangle shape */
+        filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
+        
+        /* Add continuous rotation animation */
+        animation: rotatePhoto 20s linear infinite;
     }
+
+    /* Keyframes for the photo rotation */
+    @keyframes rotatePhoto {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    /* --------------------------- */
     
     .cake-svg { margin: 15px auto; width: 340px; }
     #confetti, #fireworks { position: fixed; top:0; left:0; pointer-events:none; z-index:1; }
