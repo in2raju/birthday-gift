@@ -168,7 +168,7 @@ window.onload = function() {
     surpriseBtn.addEventListener("click", function() {
         // 1. Hide the Start Screen
         startScreen.style.opacity = "0";
-        setTimeout(() => { startScreen.style.display = "none"; }, 10000);
+        setTimeout(() => { startScreen.style.display = "none"; }, 1000);
 
         // 2. Reveal the Content
         content.style.display = "block";
@@ -190,7 +190,7 @@ window.onload = function() {
                 updateDetailedAge();
 
                 // 5. Start Slideshow (pic1.jpg, pic2.jpg, pic3.jpg)
-                const photos = ["pic1.jpg", "pic2.jpg", "pic3.jpg","pic0.jpg"];
+                const photos = ["pic1.jpg", "pic2.jpg", "pic3.jpg"];
                 let current = 0;
                 photo.src = photos[current];
                 photo.style.opacity = 1;
